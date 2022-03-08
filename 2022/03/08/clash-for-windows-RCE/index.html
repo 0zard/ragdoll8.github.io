@@ -9,7 +9,7 @@
     <meta name="description" content="Clash for windows RCE前因前段时间暴露出Clash for windows 一款使用electron编写的桌面代理软件出现RCE命令执行漏洞，初步了解是因为XSS构成的，因为对XSS构成RCE的漏洞比较感兴趣，所以想来试试看。 分析使用前请提前用npm安装electron。 1npm install electron -g 由于是使用electron编写的，也是开源的软件，去作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="clash-for-windows-RCE">
-<meta property="og:url" content="http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/index.html">
+<meta property="og:url" content="http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/index.html">
 <meta property="og:site_name" content="探索">
 <meta property="og:description" content="Clash for windows RCE前因前段时间暴露出Clash for windows 一款使用electron编写的桌面代理软件出现RCE命令执行漏洞，初步了解是因为XSS构成的，因为对XSS构成RCE的漏洞比较感兴趣，所以想来试试看。 分析使用前请提前用npm安装electron。 1npm install electron -g 由于是使用electron编写的，也是开源的软件，去作">
 <meta property="og:locale" content="en_US">
@@ -25,17 +25,17 @@
     
       
         
-          <link rel="shortcut icon" href="/ragdoll8/images/favicon.ico">
+          <link rel="shortcut icon" href="/ragdoll8/ragdoll8.github.io/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/ragdoll8/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/ragdoll8/ragdoll8.github.io/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/ragdoll8/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/ragdoll8/ragdoll8.github.io/images/apple-touch-icon.png">
         
       
     
@@ -43,7 +43,7 @@
     <title>clash-for-windows-RCE</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/ragdoll8/css/style.css">
+<link rel="stylesheet" href="/ragdoll8/ragdoll8.github.io/css/style.css">
 
     <!-- persian styles -->
     
@@ -64,13 +64,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/ragdoll8/">Home</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/">Home</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/about/">About</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/about/">About</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/archives/">Writing</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/archives/">Writing</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/projects_url">Projects</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/projects_url">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -79,7 +79,7 @@
       <ul>
         
         
-        <li><a class="icon" aria-label="Next post" href="/ragdoll8/2022/03/08/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/ragdoll8/ragdoll8.github.io/2022/03/08/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -92,17 +92,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&text=clash-for-windows-RCE"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&is_video=false&description=clash-for-windows-RCE"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=clash-for-windows-RCE&body=Check out this article: http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&name=clash-for-windows-RCE&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&t=clash-for-windows-RCE"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&text=clash-for-windows-RCE"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&is_video=false&description=clash-for-windows-RCE"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=clash-for-windows-RCE&body=Check out this article: http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&name=clash-for-windows-RCE&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&t=clash-for-windows-RCE"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -188,13 +188,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/ragdoll8/">Home</a></li>
+          <li><a href="/ragdoll8/ragdoll8.github.io/">Home</a></li>
          
-          <li><a href="/ragdoll8/about/">About</a></li>
+          <li><a href="/ragdoll8/ragdoll8.github.io/about/">About</a></li>
          
-          <li><a href="/ragdoll8/archives/">Writing</a></li>
+          <li><a href="/ragdoll8/ragdoll8.github.io/archives/">Writing</a></li>
          
-          <li><a href="/ragdoll8/projects_url">Projects</a></li>
+          <li><a href="/ragdoll8/ragdoll8.github.io/projects_url">Projects</a></li>
         
       </ul>
     </div>
@@ -205,17 +205,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&text=clash-for-windows-RCE"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&is_video=false&description=clash-for-windows-RCE"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=clash-for-windows-RCE&body=Check out this article: http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&name=clash-for-windows-RCE&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://github.com/ragdoll8/2022/03/08/clash-for-windows-RCE/&t=clash-for-windows-RCE"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&text=clash-for-windows-RCE"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&is_video=false&description=clash-for-windows-RCE"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=clash-for-windows-RCE&body=Check out this article: http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&title=clash-for-windows-RCE"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&name=clash-for-windows-RCE&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://github.com/ragdoll8/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/&t=clash-for-windows-RCE"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -243,13 +243,13 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/ragdoll8/">Home</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/">Home</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/about/">About</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/about/">About</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/archives/">Writing</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/archives/">Writing</a></li><!--
      --><!--
-       --><li><a href="/ragdoll8/projects_url">Projects</a></li><!--
+       --><li><a href="/ragdoll8/ragdoll8.github.io/projects_url">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -297,7 +297,7 @@
   </script>
 
 
-<script src="/ragdoll8/js/main.js"></script>
+<script src="/ragdoll8/ragdoll8.github.io/js/main.js"></script>
 
 <!-- search -->
 
