@@ -3,6 +3,7 @@
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="code-X0W6WvSbEE" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
@@ -13,14 +14,14 @@
 <meta property="og:site_name" content="探索">
 <meta property="og:description" content="Clash for windows RCE前因前段时间暴露出Clash for windows 一款使用electron编写的桌面代理软件出现RCE命令执行漏洞，初步了解是因为XSS构成的，因为对XSS构成RCE的漏洞比较感兴趣，所以想来试试看。 分析使用前请提前用npm安装electron。 1npm install electron -g 由于是使用electron编写的，也是开源的软件，去作">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://ragdoll8.github.io/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/image.jpg">
-<meta property="og:image" content="https://ragdoll8.github.io/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/2.png">
-<meta property="og:image" content="https://ragdoll8.github.io/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/3.png">
+<meta property="og:image" content="https://ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/image.jpg">
+<meta property="og:image" content="https://ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/2.png">
+<meta property="og:image" content="https://ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/3.png">
 <meta property="article:published_time" content="2022-03-08T06:56:01.000Z">
 <meta property="article:modified_time" content="2022-03-08T07:34:27.771Z">
 <meta property="article:author" content="ragdoll8">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ragdoll8.github.io/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/image.jpg">
+<meta name="twitter:image" content="https://ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/image.jpg">
     
     
       
@@ -71,6 +72,8 @@
        --><li><a href="/archives/">文章</a></li><!--
      --><!--
        --><li><a href="/projects_url">Github</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
      -->
       </ul>
     </span>
@@ -162,20 +165,26 @@
 
 <p>暴露出RCE的漏洞是在配置文件中的name字段，我这边选了一个更简单复现的，在Profiles的搜索框中，直接输入XSS。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
-<img src="/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/image.jpg" class>
+<img src="/2022/03/08/clash-for-windows-RCE/image.jpg" class>
 <p>可以成功弹窗。</p>
 <p>如果没有问题，程序应该可以成功运行，点击窗口的View 选项，选择toggle developer Tools。</p>
 <p>接下来和在web调试Js代码一模一样。</p>
 <p>下断点一步一步调试后发现，作者在弹窗是使用了svg标签包裹了错误信息，并使用innerHTML方法将其返回，这便是造成xss的主要原因。故此猜测，在从配置文件中取出name字段时，也是使用了InnerHtml方法将其直接显示在主窗体中。</p>
-<img src="/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/2.png" class>
+<img src="/2022/03/08/clash-for-windows-RCE/2.png" class>
 
 <p>但是由于electron在默认设置下，渲染进程是不允许使用NodeJS的原生API，不能使用require，也就不能RCE了。但是可能由于某些需要，在main.js的mainWindow中将nodeIntegration 设置为true，使得在渲染进程中得以使用原生api。</p>
 <p>或者是由于其他的什么原因，没有根据<a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/security">electron的安全推荐</a>进行编写代码，解压后的代码被重命名，太难看懂，没有仔细研究。</p>
 <p>也去下载了最新的版本的修复，修复方案是弃用innerHtml方法，改用其他方式弹窗。相比前一个版本，innerHtml方法少了20+。</p>
-<img src="/ragdoll8.github.io/2022/03/08/clash-for-windows-RCE/3.png" class>
+<img src="/2022/03/08/clash-for-windows-RCE/3.png" class>
 
   </div>
 </article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
 
 
 
@@ -193,6 +202,8 @@
           <li><a href="/archives/">文章</a></li>
          
           <li><a href="/projects_url">Github</a></li>
+         
+          <li><a href="/search/">Search</a></li>
         
       </ul>
     </div>
@@ -248,6 +259,8 @@
        --><li><a href="/archives/">文章</a></li><!--
      --><!--
        --><li><a href="/projects_url">Github</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
      -->
       </ul>
     </nav>
@@ -308,6 +321,18 @@
 <!-- Umami Analytics -->
 
 <!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'www-ragdoll8-com';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
 
 <!-- utterances Comments -->
 
